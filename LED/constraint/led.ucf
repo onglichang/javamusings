@@ -1,1 +1,1 @@
-NET "outled" LOC = P24 | IOSTANDARD = LVTTL;
+NET "outled" LOC = P29 | IOSTANDARD = LVTTL;
