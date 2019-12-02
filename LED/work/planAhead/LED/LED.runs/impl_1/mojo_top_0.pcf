@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Fri Nov 29 17:10:44 2019
+// Written by: Map P.20131013 on Mon Dec 02 17:44:29 2019
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -7,7 +7,6 @@ CONFIG VCCAUX = "3.3";
 COMP "spi_sck" LOCATE = SITE "P43" LEVEL 1;
 COMP "clk" LOCATE = SITE "P56" LEVEL 1;
 COMP "avr_rx_busy" LOCATE = SITE "P39" LEVEL 1;
-COMP "outled" LOCATE = SITE "P24" LEVEL 1;
 COMP "spi_mosi" LOCATE = SITE "P44" LEVEL 1;
 COMP "led[0]" LOCATE = SITE "P134" LEVEL 1;
 COMP "led[1]" LOCATE = SITE "P133" LEVEL 1;
@@ -20,20 +19,29 @@ COMP "led[5]" LOCATE = SITE "P126" LEVEL 1;
 COMP "led[6]" LOCATE = SITE "P124" LEVEL 1;
 COMP "rst_n" LOCATE = SITE "P38" LEVEL 1;
 COMP "led[7]" LOCATE = SITE "P123" LEVEL 1;
+COMP "outled1" LOCATE = SITE "P51" LEVEL 1;
+COMP "outled2" LOCATE = SITE "P41" LEVEL 1;
+COMP "outled3" LOCATE = SITE "P35" LEVEL 1;
+COMP "outled4" LOCATE = SITE "P33" LEVEL 1;
+COMP "outled5" LOCATE = SITE "P30" LEVEL 1;
+COMP "outled6" LOCATE = SITE "P27" LEVEL 1;
+COMP "outled7" LOCATE = SITE "P24" LEVEL 1;
+COMP "outled8" LOCATE = SITE "P22" LEVEL 1;
 COMP "cclk" LOCATE = SITE "P70" LEVEL 1;
-TIMEGRP clk = BEL "ledout/M_state_q" BEL "ledout/M_pixel_ctr_q_2" BEL
-        "ledout/M_pixel_ctr_q_0" BEL "ledout/M_pixel_ctr_q_1" BEL
-        "ledout/M_ctr_q_0" BEL "ledout/M_ctr_q_1" BEL "ledout/M_bit_ctr_q_2"
-        BEL "ledout/M_bit_ctr_q_1" BEL "ledout/M_bit_ctr_q_0" BEL
-        "ledout/M_bit_ctr_q_3" BEL "ledout/M_bit_ctr_q_4" BEL
-        "ledout/M_rst_ctr_q_11" BEL "ledout/M_rst_ctr_q_10" BEL
-        "ledout/M_rst_ctr_q_9" BEL "ledout/M_rst_ctr_q_8" BEL
-        "ledout/M_rst_ctr_q_7" BEL "ledout/M_rst_ctr_q_6" BEL
-        "ledout/M_rst_ctr_q_5" BEL "ledout/M_rst_ctr_q_4" BEL
-        "ledout/M_rst_ctr_q_3" BEL "ledout/M_rst_ctr_q_2" BEL
-        "ledout/M_rst_ctr_q_1" BEL "ledout/M_rst_ctr_q_0" BEL
-        "ledout/M_ctr_q_4" BEL "ledout/M_ctr_q_3" BEL "ledout/M_ctr_q_5" BEL
-        "ledout/M_ctr_q_2" BEL "ledout/M_state_q_1" BEL "clk_BUFGP/BUFG" BEL
+TIMEGRP clk = BEL "ledout8/M_state_q" BEL "ledout8/M_pixel_ctr_q_1" BEL
+        "ledout8/M_pixel_ctr_q_0" BEL "ledout8/M_bit_ctr_q_0" BEL
+        "ledout8/M_rst_ctr_q_3" BEL "ledout8/M_rst_ctr_q_1" BEL
+        "ledout8/M_rst_ctr_q_2" BEL "ledout8/M_rst_ctr_q_6" BEL
+        "ledout8/M_rst_ctr_q_4" BEL "ledout8/M_rst_ctr_q_5" BEL
+        "ledout8/M_rst_ctr_q_7" BEL "ledout8/M_rst_ctr_q_8" BEL
+        "ledout8/M_rst_ctr_q_11" BEL "ledout8/M_rst_ctr_q_9" BEL
+        "ledout8/M_rst_ctr_q_10" BEL "ledout8/M_rst_ctr_q_0" BEL
+        "ledout8/M_pixel_ctr_q_2" BEL "ledout8/M_pixel_ctr_q_3" BEL
+        "ledout8/M_bit_ctr_q_3" BEL "ledout8/M_bit_ctr_q_1" BEL
+        "ledout8/M_bit_ctr_q_2" BEL "ledout8/M_bit_ctr_q_4" BEL
+        "ledout8/M_state_q_1" BEL "ledout8/M_ctr_q_1" BEL "ledout8/M_ctr_q_4"
+        BEL "ledout8/M_ctr_q_2" BEL "ledout8/M_ctr_q_3" BEL
+        "ledout8/M_ctr_q_5" BEL "ledout8/M_ctr_q_0" BEL "clk_BUFGP/BUFG" BEL
         "reset_cond/M_stage_q_3" BEL "reset_cond/M_stage_q_2" BEL
         "reset_cond/M_stage_q_1" BEL "reset_cond/M_stage_q_0";
 TS_clk = PERIOD TIMEGRP "clk" 50 MHz HIGH 50%;

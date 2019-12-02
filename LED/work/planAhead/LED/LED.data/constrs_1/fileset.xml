@@ -5,7 +5,7 @@
     <File Path="$PSRCDIR/constrs_1/imports/led.ucf">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../../constraint/led.ucf"/>
-        <Attr Name="ImportTime" Val="1575017532"/>
+        <Attr Name="ImportTime" Val="1575279593"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>
@@ -13,7 +13,7 @@
     <File Path="$PSRCDIR/constrs_1/imports/io_shield.ucf">
       <FileInfo>
         <Attr Name="ImportPath" Val="$PPRDIR/../../../constraint/io_shield.ucf"/>
-        <Attr Name="ImportTime" Val="1575018404"/>
+        <Attr Name="ImportTime" Val="1575279601"/>
         <Attr Name="UsedInSynthesis" Val="1"/>
         <Attr Name="UsedInImplementation" Val="1"/>
       </FileInfo>

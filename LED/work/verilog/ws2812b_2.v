@@ -6,41 +6,102 @@
 
 /*
    Parameters:
-     PIXEL_COUNT = 8
+     LED_COUNT = 8
+     GROUP_COUNT = 2
 */
 module ws2812b_2 (
     input clk,
     input rst,
-    input [23:0] color,
-    output reg [2:0] pixel,
+    input [31:0] color,
     output reg led,
     input update
   );
   
-  localparam PIXEL_COUNT = 4'h8;
+  localparam LED_COUNT = 4'h8;
+  localparam GROUP_COUNT = 2'h2;
   
+  
+  localparam PIXEL_COUNT = 6'h10;
   
   localparam SEND_PIXEL_state = 1'd0;
   localparam RESET_state = 1'd1;
   
   reg M_state_d, M_state_q = SEND_PIXEL_state;
-  reg [2:0] M_pixel_ctr_d, M_pixel_ctr_q = 1'h0;
+  reg [3:0] M_pixel_ctr_d, M_pixel_ctr_q = 1'h0;
+  reg [2:0] M_led_ctr_d, M_led_ctr_q = 1'h0;
+  reg [0:0] M_current_group_led_ctr_d, M_current_group_led_ctr_q = 1'h0;
   reg [4:0] M_bit_ctr_d, M_bit_ctr_q = 1'h0;
   reg [5:0] M_ctr_d, M_ctr_q = 1'h0;
   reg [11:0] M_rst_ctr_d, M_rst_ctr_q = 1'h0;
   
+  localparam BLUE = 24'hff0000;
+  
+  localparam GREEN = 24'h0000ff;
+  
+  localparam RED = 24'h00ff00;
+  
+  localparam PINK = 24'hc9ff84;
+  
+  localparam TURQUOISE = 24'h0b0207;
+  
+  localparam WHITE = 24'hffffff;
+  
+  localparam PADDED_BLUE = 48'h000000ff0000;
+  
+  localparam PADDED_GREEN = 48'h0000000000ff;
+  
+  localparam PADDED_RED = 48'h00000000ff00;
+  
+  localparam PADDED_PINK = 48'h000000c9ff84;
+  
+  localparam PADDED_TURQUOISE = 48'h0000000b0207;
+  
+  localparam PADDED_WHITE = 48'h000000ffffff;
+  
+  localparam PADDED_CYAN = 48'h000000ff00ff;
+  
   reg [23:0] bits;
+  
+  reg [47:0] group_bits;
   
   always @* begin
     M_state_d = M_state_q;
+    M_led_ctr_d = M_led_ctr_q;
     M_pixel_ctr_d = M_pixel_ctr_q;
     M_rst_ctr_d = M_rst_ctr_q;
     M_bit_ctr_d = M_bit_ctr_q;
     M_ctr_d = M_ctr_q;
+    M_current_group_led_ctr_d = M_current_group_led_ctr_q;
     
     led = 1'h0;
-    bits = {color[0+0-:1], color[1+0-:1], color[2+0-:1], color[3+0-:1], color[4+0-:1], color[5+0-:1], color[6+0-:1], color[7+0-:1], color[8+0-:1], color[9+0-:1], color[10+0-:1], color[11+0-:1], color[12+0-:1], color[13+0-:1], color[14+0-:1], color[15+0-:1], color[16+0-:1], color[17+0-:1], color[18+0-:1], color[19+0-:1], color[20+0-:1], color[21+0-:1], color[22+0-:1], color[23+0-:1]};
-    pixel = M_pixel_ctr_q;
+    
+    case (color[(M_led_ctr_q)*4+3-:4])
+      4'h9: begin
+        group_bits = 48'h00000000ff00;
+      end
+      4'h5: begin
+        group_bits = 48'h0000000000ff;
+      end
+      4'h3: begin
+        group_bits = 48'h000000ff0000;
+      end
+      4'hd: begin
+        group_bits = 48'h000000c9ff84;
+      end
+      4'h7: begin
+        group_bits = 48'h0000000b0207;
+      end
+      4'h1: begin
+        group_bits = 48'h000000ff00ff;
+      end
+      4'h0: begin
+        group_bits = 48'h000000000000;
+      end
+      default: begin
+        group_bits = 48'h000000ffffff;
+      end
+    endcase
+    bits = group_bits[(M_current_group_led_ctr_q)*24+23-:24];
     
     case (M_state_q)
       SEND_PIXEL_state: begin
@@ -56,8 +117,14 @@ module ws2812b_2 (
           if (M_bit_ctr_q == 5'h17) begin
             M_bit_ctr_d = 1'h0;
             M_pixel_ctr_d = M_pixel_ctr_q + 1'h1;
-            if (M_pixel_ctr_q == 5'h07) begin
+            M_current_group_led_ctr_d = M_current_group_led_ctr_q + 1'h1;
+            if (M_current_group_led_ctr_q == 3'h1) begin
+              M_current_group_led_ctr_d = 1'h0;
+              M_led_ctr_d = M_led_ctr_q + 1'h1;
+            end
+            if (M_pixel_ctr_q == 7'h0f) begin
               M_pixel_ctr_d = 1'h0;
+              M_led_ctr_d = 1'h0;
               M_state_d = RESET_state;
             end
           end
@@ -79,12 +146,16 @@ module ws2812b_2 (
   always @(posedge clk) begin
     if (rst == 1'b1) begin
       M_pixel_ctr_q <= 1'h0;
+      M_led_ctr_q <= 1'h0;
+      M_current_group_led_ctr_q <= 1'h0;
       M_bit_ctr_q <= 1'h0;
       M_ctr_q <= 1'h0;
       M_rst_ctr_q <= 1'h0;
       M_state_q <= 1'h0;
     end else begin
       M_pixel_ctr_q <= M_pixel_ctr_d;
+      M_led_ctr_q <= M_led_ctr_d;
+      M_current_group_led_ctr_q <= M_current_group_led_ctr_d;
       M_bit_ctr_q <= M_bit_ctr_d;
       M_ctr_q <= M_ctr_d;
       M_rst_ctr_q <= M_rst_ctr_d;

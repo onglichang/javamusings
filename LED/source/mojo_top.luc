@@ -11,7 +11,15 @@ module mojo_top (
     input avr_tx,           // AVR TX (FPGA RX)
     output avr_rx,          // AVR RX (FPGA TX)
     input avr_rx_busy,      // AVR RX buffer full
-    output outled
+    output outled1,
+    output outled2,
+    output outled3,
+    output outled4,
+    output outled5,
+    output outled6,
+    output outled7,
+    output outled8
+    
   ) {
   
   sig rst;                  // reset signal
@@ -21,7 +29,14 @@ module mojo_top (
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
     .rst(rst){
-      ws2812b ledout;
+      ws2812b ledout1;
+      ws2812b ledout2;
+      ws2812b ledout3;
+      ws2812b ledout4;
+      ws2812b ledout5;
+      ws2812b ledout6;
+      ws2812b ledout7;
+      ws2812b ledout8;
       }
     
   }
@@ -35,9 +50,40 @@ module mojo_top (
     spi_channel = bzzzz;    // not using flags
     avr_rx = bz;            // not using serial port
     
-    ledout.update=1;
-    ledout.color=24b111111110000000000000000;
-    //24b000000000000000011111111; //this is red
-    outled=ledout.led;
+    ledout1.update=1;
+    ledout1.color= {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled1=ledout1.led;
+    
+    ledout2.update=1;
+    ledout2.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled2=ledout2.led;
+    
+    ledout3.update=1;
+    ledout3.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled3=ledout3.led;
+    
+    ledout3.update=1;
+    ledout3.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled3=ledout3.led;
+    
+    ledout4.update=1;
+    ledout4.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled4=ledout4.led;
+    
+    ledout5.update=1;
+    ledout5.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled5=ledout5.led;
+    
+    ledout6.update=1;
+    ledout6.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled6=ledout6.led;
+    
+    ledout7.update=1;
+    ledout7.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    outled7=ledout7.led;
+    
+    ledout8.update=1;
+    ledout8.color = {b0000, b0000, b0000, b0000, b1001, b0011, b0101, b1001};
+    outled8=ledout8.led;
   }
 }

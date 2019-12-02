@@ -17,7 +17,14 @@ module mojo_top_0 (
     input avr_tx,
     output reg avr_rx,
     input avr_rx_busy,
-    output reg outled
+    output reg outled1,
+    output reg outled2,
+    output reg outled3,
+    output reg outled4,
+    output reg outled5,
+    output reg outled6,
+    output reg outled7,
+    output reg outled8
   );
   
   
@@ -31,17 +38,85 @@ module mojo_top_0 (
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
   );
-  wire [3-1:0] M_ledout_pixel;
-  wire [1-1:0] M_ledout_led;
-  reg [24-1:0] M_ledout_color;
-  reg [1-1:0] M_ledout_update;
-  ws2812b_2 ledout (
+  wire [1-1:0] M_ledout1_led;
+  reg [32-1:0] M_ledout1_color;
+  reg [1-1:0] M_ledout1_update;
+  ws2812b_2 ledout1 (
     .clk(clk),
     .rst(rst),
-    .color(M_ledout_color),
-    .update(M_ledout_update),
-    .pixel(M_ledout_pixel),
-    .led(M_ledout_led)
+    .color(M_ledout1_color),
+    .update(M_ledout1_update),
+    .led(M_ledout1_led)
+  );
+  wire [1-1:0] M_ledout2_led;
+  reg [32-1:0] M_ledout2_color;
+  reg [1-1:0] M_ledout2_update;
+  ws2812b_2 ledout2 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout2_color),
+    .update(M_ledout2_update),
+    .led(M_ledout2_led)
+  );
+  wire [1-1:0] M_ledout3_led;
+  reg [32-1:0] M_ledout3_color;
+  reg [1-1:0] M_ledout3_update;
+  ws2812b_2 ledout3 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout3_color),
+    .update(M_ledout3_update),
+    .led(M_ledout3_led)
+  );
+  wire [1-1:0] M_ledout4_led;
+  reg [32-1:0] M_ledout4_color;
+  reg [1-1:0] M_ledout4_update;
+  ws2812b_2 ledout4 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout4_color),
+    .update(M_ledout4_update),
+    .led(M_ledout4_led)
+  );
+  wire [1-1:0] M_ledout5_led;
+  reg [32-1:0] M_ledout5_color;
+  reg [1-1:0] M_ledout5_update;
+  ws2812b_2 ledout5 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout5_color),
+    .update(M_ledout5_update),
+    .led(M_ledout5_led)
+  );
+  wire [1-1:0] M_ledout6_led;
+  reg [32-1:0] M_ledout6_color;
+  reg [1-1:0] M_ledout6_update;
+  ws2812b_2 ledout6 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout6_color),
+    .update(M_ledout6_update),
+    .led(M_ledout6_led)
+  );
+  wire [1-1:0] M_ledout7_led;
+  reg [32-1:0] M_ledout7_color;
+  reg [1-1:0] M_ledout7_update;
+  ws2812b_2 ledout7 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout7_color),
+    .update(M_ledout7_update),
+    .led(M_ledout7_led)
+  );
+  wire [1-1:0] M_ledout8_led;
+  reg [32-1:0] M_ledout8_color;
+  reg [1-1:0] M_ledout8_update;
+  ws2812b_2 ledout8 (
+    .clk(clk),
+    .rst(rst),
+    .color(M_ledout8_color),
+    .update(M_ledout8_update),
+    .led(M_ledout8_led)
   );
   
   always @* begin
@@ -51,8 +126,32 @@ module mojo_top_0 (
     spi_miso = 1'bz;
     spi_channel = 4'bzzzz;
     avr_rx = 1'bz;
-    M_ledout_update = 1'h1;
-    M_ledout_color = 24'hff0000;
-    outled = M_ledout_led;
+    M_ledout1_update = 1'h1;
+    M_ledout1_color = 32'hdd709359;
+    outled1 = M_ledout1_led;
+    M_ledout2_update = 1'h1;
+    M_ledout2_color = 32'hdd709359;
+    outled2 = M_ledout2_led;
+    M_ledout3_update = 1'h1;
+    M_ledout3_color = 32'hdd709359;
+    outled3 = M_ledout3_led;
+    M_ledout3_update = 1'h1;
+    M_ledout3_color = 32'hdd709359;
+    outled3 = M_ledout3_led;
+    M_ledout4_update = 1'h1;
+    M_ledout4_color = 32'hdd709359;
+    outled4 = M_ledout4_led;
+    M_ledout5_update = 1'h1;
+    M_ledout5_color = 32'hdd709359;
+    outled5 = M_ledout5_led;
+    M_ledout6_update = 1'h1;
+    M_ledout6_color = 32'hdd709359;
+    outled6 = M_ledout6_led;
+    M_ledout7_update = 1'h1;
+    M_ledout7_color = 32'hdd709359;
+    outled7 = M_ledout7_led;
+    M_ledout8_update = 1'h1;
+    M_ledout8_color = 32'h00009359;
+    outled8 = M_ledout8_led;
   end
 endmodule
