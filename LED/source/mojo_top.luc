@@ -11,10 +11,13 @@ module mojo_top (
     input avr_tx,           // AVR TX (FPGA RX)
     output avr_rx,          // AVR RX (FPGA TX)
     input avr_rx_busy,      // AVR RX buffer full
-    output outled1,
-    output outled2,
-    output outled3,
-    output outled4,
+    input user_input_all[112], //From Jia Yi 
+    input bull_cow_input[112], //From Jia Yi 
+    input final_answer[16], //From Jia Yi
+    output outled1,         // LED Strip Bot
+    output outled2,         
+    output outled3,         
+    output outled4,         
     output outled5,
     output outled6,
     output outled7,
@@ -23,6 +26,9 @@ module mojo_top (
   ) {
   
   sig rst;                  // reset signal
+  sig userled[64];
+  sig bullsandcowled[64];
+  
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
@@ -36,7 +42,7 @@ module mojo_top (
       ws2812b ledout5;
       ws2812b ledout6;
       ws2812b ledout7;
-      ws2812b ledout8;
+      ws2812b ledout8; 
       }
     
   }
@@ -50,40 +56,69 @@ module mojo_top (
     spi_channel = bzzzz;    // not using flags
     avr_rx = bz;            // not using serial port
     
+    /* To be replaced with user_input_all, bull_cow_input
+    userled = 11011101011100001001001101011001110111010111000010010011010110011101110101110000100100110101100111011101011100001001001101011001;
+    bullsandcowled = 11011101011100001001001101011001110111010111000010010011010110011101110101110000100100110101100111011101011100001001001101011001;
+    */
+    
+    
+    //dsadsad = 3x{{8b00}};
+    //w1 = {bullsandcowled[3:0], bullsandcowled[7:4], bullsandcowled[11:8], bullsandcowled[15:12], userled[3:0], userled[7:4], userled[11:8], userled[15:12]} 
+      
     ledout1.update=1;
     ledout1.color= {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[3:0], bull_cow_input[7:4], bull_cow_input[11:8], bull_cow_input[15:12], user_input_all[3:0], user_input_all[7:4], user_input_all[11:8], user_input_all[15:12]}; 
+    */
     outled1=ledout1.led;
     
     ledout2.update=1;
     ledout2.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[19:16], bull_cow_input[23:20], bull_cow_input[27:24], bull_cow_input[31:28], user_input_all[19:16], user_input_all[23:20], user_input_all[27:24], user_input_all[31:28]}; 
+    */
     outled2=ledout2.led;
     
     ledout3.update=1;
     ledout3.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
-    outled3=ledout3.led;
-    
-    ledout3.update=1;
-    ledout3.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[35:32], bull_cow_input[39:36], bull_cow_input[43:40], bull_cow_input[47:44], user_input_all[35:32], user_input_all[39:36], user_input_all[43:40], user_input_all[47:44]}; 
+    */
     outled3=ledout3.led;
     
     ledout4.update=1;
     ledout4.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[51:48], bull_cow_input[55:52], bull_cow_input[59:56], bull_cow_input[63:60], user_input_all[51:48], user_input_all[55:52], user_input_all[59:56], user_input_all[63:60]}; 
+    */
     outled4=ledout4.led;
     
     ledout5.update=1;
     ledout5.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[67:64], bull_cow_input[71:68], bull_cow_input[75:72], bull_cow_input[79:76], user_input_all[67:64], user_input_all[71:68], user_input_all[75:72], user_input_all[79:76]}; 
+    */
     outled5=ledout5.led;
     
     ledout6.update=1;
     ledout6.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[83:80], bull_cow_input[87:84], bull_cow_input[91:88], bull_cow_input[95:92], user_input_all[83:80], user_input_all[87:84], user_input_all[91:88], user_input_all[95:92]}; 
+    */
     outled6=ledout6.led;
     
     ledout7.update=1;
     ledout7.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {bull_cow_input[99:96], bull_cow_input[103:100], bull_cow_input[107:104], bull_cow_input[111:108], user_input_all[99:96], user_input_all[103:100], user_input_all[107:104], user_input_all[111:108]}; 
+    */
     outled7=ledout7.led;
     
     ledout8.update=1;
-    ledout8.color = {b0000, b0000, b0000, b0000, b1001, b0011, b0101, b1001};
+    ledout8.color = {b1101, b1101, b0111, b0000, b1001, b0011, b0101, b1001};
+    /* Hardcode the placement for subsequent ledouts...
+    ledout1.color = {4b0000, 4b0000, 4b0000, 4b0000, final_answer[3:0], final_answer[7:4], final_answer[11:8], final_answer[15;12]}; 
+    */
     outled8=ledout8.led;
   }
 }

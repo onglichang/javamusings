@@ -17,6 +17,8 @@ module mojo_top_0 (
     input avr_tx,
     output reg avr_rx,
     input avr_rx_busy,
+    input [111:0] user_input_all,
+    input [111:0] bull_cow_input,
     output reg outled1,
     output reg outled2,
     output reg outled3,
@@ -30,6 +32,10 @@ module mojo_top_0 (
   
   
   reg rst;
+  
+  reg [63:0] userled;
+  
+  reg [63:0] bullsandcowled;
   
   wire [1-1:0] M_reset_cond_out;
   reg [1-1:0] M_reset_cond_in;
@@ -126,8 +132,10 @@ module mojo_top_0 (
     spi_miso = 1'bz;
     spi_channel = 4'bzzzz;
     avr_rx = 1'bz;
+    userled = 423'h4110d6132dcb1be0a582d0a3cbedf122d558d1cfe7a19637b58306c3fe745377bb48c952a89e5829dd3f0e3bbe1830f53debfba839;
+    bullsandcowled = 423'h4110d6132dcb1be0a582d0a3cbedf122d558d1cfe7a19637b58306c3fe745377bb48c952a89e5829dd3f0e3bbe1830f53debfba839;
     M_ledout1_update = 1'h1;
-    M_ledout1_color = 32'hdd709359;
+    M_ledout1_color = {bullsandcowled[0+3-:4], bullsandcowled[4+3-:4], bullsandcowled[8+3-:4], bullsandcowled[12+3-:4], userled[0+3-:4], userled[4+3-:4], userled[8+3-:4], userled[12+3-:4]};
     outled1 = M_ledout1_led;
     M_ledout2_update = 1'h1;
     M_ledout2_color = 32'hdd709359;
